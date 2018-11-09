@@ -1,4 +1,5 @@
 import tkinter as tk
+import random
 
 def setup():
     global root, output_label, choice, resultVAR
