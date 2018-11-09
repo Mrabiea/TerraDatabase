@@ -22,6 +22,12 @@ def getalllands():
     return result
 
 
+def getlandinfo(land):
+    _SQL="""select * from land where Name=%s"""
+    cursor.execute(_SQL, (land,))
+    landinfo =cursor.fetchall()
+    return landinfo
+
 def connectto_database():
     global dbconfig, connection, cursor
     connection = mysql.connector.connect(**dbconfig)
