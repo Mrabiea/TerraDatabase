@@ -1,5 +1,6 @@
 from tkinter import ttk
 import tkinter as tk
+
 import DatabaseConnectivity.Database_access as access
 
 # a function is required so getting the information will be easier when the
@@ -19,12 +20,14 @@ def center(win):
 
 def setup():
     global root
+    #land_information=
     root = tk.Tk()
     root.geometry("800x600")
     center(root)
     root.title("M&Y Project")
-    land_label=ttk.Label(root,text="asdf",)
-    land_label.config(font=("Courier", 44))
+    land_label=ttk.Label(root,text="asdfffffff",padx=50)
+    land_label.configure(font=("Courier", 33),)
+
     land_label.grid(row=1)
 
 if __name__ == "__main__":

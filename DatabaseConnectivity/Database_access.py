@@ -9,14 +9,16 @@ dbconfig = {"host": "localhost",
 
 def getallContinent():
     _SQL = """select * from kontinent"""
-    result=cursor.execute(_SQL)
+    result = cursor.execute(_SQL)
     return result
-    #return cursor.fetchall()
+    # return cursor.fetchall()
+
 
 def getllland():
     _SQL = """select * from land"""
-    cursor.execute(_SQL)
-    return cursor.fetchall()
+    result = cursor.execute(_SQL)
+    return result
+
 
 def connectto_database():
     global dbconfig, connection, cursor
