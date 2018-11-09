@@ -8,15 +8,17 @@ dbconfig = {"host": "localhost",
 
 
 def getallContinent():
-    _SQL = """select * from kontinent"""
-    result = cursor.execute(_SQL)
+    _SQL = """select Name from kontinent"""
+    cursor.execute(_SQL)
+    result = cursor.fetchall()
     return result
     # return cursor.fetchall()
 
 
-def getllland():
-    _SQL = """select * from land"""
-    result = cursor.execute(_SQL)
+def getalllands():
+    _SQL = """select Name from land"""
+    cursor.execute(_SQL)
+    result = cursor.fetchall()
     return result
 
 
