@@ -1,32 +1,29 @@
 import tkinter as tk
-import random
+from tkinter import ttk
 
 def setup():
-    global root, output_label, choice, resultVAR
-
+    global root
     root = tk.Tk()
-    root.geometry("800x600")
-    #center(root)
-    root.title("Master the Database")
-    # flexible_view = tk.Canvas(root, width=500, height=300,
-    #                           borderwidth=2,
-    #                           highlightthickness=0,
-    #                           )
-    # flexible_view.grid(row=0, column=1, columnspan=3)
-    #insertionFields()
-    insert_button = tk.Button(root, text="Insert", width=12)
-    insert_button.grid(row=7, column=3, padx=20, pady=20)
-    #insert_button.bind('<Button-1>', insert)
-    clear_button = tk.Button(root, text="Clear", width=12)
-    clear_button.grid(row=7, column=2, padx=20, pady=20)
-    #clear_button.bind('<Button-1>', clear)
+    root.title("M&Y project")
 
-    resultVAR = tk.StringVar(root)
-    resultVAR.set("................")
-    result_label = tk.Label(root, textvariable=resultVAR, width=40)
-    result_label.grid(row=8, column=1)
+    continent_L = ttk.Label(root, text="Choose a continent:", width=20)
+    continent_L.grid(row=0, column=0, padx=20, pady=20)
+    country_L = ttk.Label(root, text="Choose a country:", width=20)
+    country_L.grid(row=1, column=0, padx=20, pady=20)
+
+    continent_C = ttk.OptionMenu(root, 'Choose a continent')
+    continent_C.config(width=20)
+    continent_C.grid(row=0, column=1, padx=20, pady=20)
+    country_C = ttk.OptionMenu(root, 'Choose a country')
+    country_C.config(width=20)
+    country_C.grid(row=1, column=1, padx=20, pady=20)
+
+    go = ttk.Button(root, text='Go!', width = 20)
+    go.grid(row=2, column=1, padx=20, pady=20)
 
 
-if __name__ == "__main__":
+
+
+if __name__ == '__main__':
     setup()
     root.mainloop()
