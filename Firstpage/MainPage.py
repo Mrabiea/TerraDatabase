@@ -15,8 +15,9 @@ def setup():
     country_L.grid(row=1, column=0, padx=20, pady=20)
     # hier gab einen Fehler weil die liste hatte mehrere listen drin so ist gelöst. Rabiea
     continent = [item for sublist in access.getallContinent() for item in sublist]
-
-    continent_C = ttk.OptionMenu(root,*continent)
+    # OptionMenu braucht eine verändbare Varibale deshalb habe ich sie hinzugefügt
+    string=tk.StringVar()
+    continent_C = ttk.OptionMenu(root,string,*continent)
     continent_C.config(width=20)
     continent_C.grid(row=0, column=1, padx=20, pady=20)
     country_C = ttk.OptionMenu(root, 'Choose a country')
