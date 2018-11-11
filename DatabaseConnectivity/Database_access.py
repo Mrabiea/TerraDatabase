@@ -26,9 +26,9 @@ def getcities(land):
     landinfo = cursor.fetchall()
     return landinfo
 
-def getalllands():
-    _SQL = """select Name from land"""
-    cursor.execute(_SQL)
+def getalllands(kontinent):
+    _SQL = """select L.Name from land L inner join kontinent K on K.KNR=L.KNR where K.Name=%s"""
+    cursor.execute(_SQL,(kontinent,))
     result = cursor.fetchall()
     return result
 
