@@ -13,12 +13,13 @@ def center(win):
     width = win.winfo_width()
     height = win.winfo_height()
     x = (win.winfo_screenwidth() // 2) - (width // 2)
-    y = (win.winfo_screenheight() // 2) - (height // 2)
+    y = (height // 2)
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+    # (win.winfo_screenheight() // 2) -
 
 
 def newwindow():
-    global secondroot, root, countries_string,contient_string
+    global secondroot, root, countries_string, contient_string
 
     secondroot = tk.Toplevel(root)
     secondroot.geometry("800x600")
@@ -31,10 +32,10 @@ def newwindow():
     land_label.grid(row=0, column=1)
 
     scrollbar = tk.Scrollbar(secondroot)
-    continent_label=ttk.Label(secondroot,text="Continent: "+contient_string.get())
+    continent_label = ttk.Label(secondroot, text="Continent: " + contient_string.get())
     continent_label.configure(font=("Calibri", 18))
-    continent_label.grid(row=1,column=2)
-    citys_label = ttk.Label(secondroot, text="Citys of " + land_info[0][1])
+    continent_label.grid(row=1, column=2)
+    citys_label = ttk.Label(secondroot, text="Cities of " + land_info[0][1])
     citys_label.grid(row=2, column=1)
     city_list = tk.Listbox(secondroot, width=30)
     city_list.grid(row=3, column=1, columnspan=1, padx=10)
@@ -44,14 +45,21 @@ def newwindow():
     for i in access.getcities(countries_string.get()):
         city_list.insert(tk.END, i)
 
-    neighborlands = tk.Label(secondroot, text="Neighborlands of " + land_info[0][1])
+    neighborlands = tk.Label(secondroot, text="Neighbors of " + land_info[0][1])
     neighborlands.grid(row=2, column=2)
     neighborlands_list = tk.Listbox(secondroot)
     neighborlands_list.grid(row=3, column=2, columnspan=1, padx=10)
+    neighborlands_list.bind("<B1-Leave>", lambda event: "break")
 
     for i in access.getneighborland(countries_string.get()):
         neighborlands_list.insert(tk.END, i)
 
+    languages = tk.Label(secondroot, text="Languages spoken in " + land_info[0][1])
+    languages.grid(row=2, column=3, padx=10)
+    languages_list = tk.Listbox(secondroot)
+    languages_list.grid(row=3, column=3, padx=10)
+    for i in access.getlanguage(countries_string.get()):
+        languages_list.insert(tk.END,i)
     secondroot.mainloop()
 
 

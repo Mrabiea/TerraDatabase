@@ -20,7 +20,7 @@ def getallContinent():
     return result
 
 def getlanguage(land):
-    _SQL = """select S.Name,L.Name from land L inner join gesprochen G on L.LNR=G.LNR 
+    _SQL = """select S.Name from land L inner join gesprochen G on L.LNR=G.LNR 
     inner join sprache S on S.SNR=G.SNR where L.Name=%s"""
     cursor.execute(_SQL, (land,))
     landinfo = cursor.fetchall()
