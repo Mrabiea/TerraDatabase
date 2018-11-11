@@ -35,15 +35,15 @@ def newwindow():
     continent_label = ttk.Label(secondroot, text="Continent: " + contient_string.get())
     continent_label.configure(font=("Calibri", 18))
     continent_label.grid(row=1, column=2)
-    citys_label = ttk.Label(secondroot, text="Cities of " + land_info[0][1])
-    citys_label.grid(row=2, column=1)
+    cities_label = ttk.Label(secondroot, text="Cities of " + land_info[0][1])
+    cities_label.grid(row=2, column=1)
     city_list = tk.Listbox(secondroot, width=30)
     city_list.grid(row=3, column=1, columnspan=1, padx=10)
     city_list.config(yscrollcommand=scrollbar.set)
-    city_list.bind("<B1-Leave>", lambda event: "break")
+    #city_list.bind("<B1-Leave>", lambda event: "break")
 
     for i in access.getcities(countries_string.get()):
-        city_list.insert(tk.END, i)
+        city_list.insert(tk.END, i[0]+"-->"+i[1])
 
     neighborlands = tk.Label(secondroot, text="Neighbors of " + land_info[0][1])
     neighborlands.grid(row=2, column=2)

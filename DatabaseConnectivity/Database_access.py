@@ -27,7 +27,7 @@ def getlanguage(land):
     return landinfo
 
 def getcities(land):
-    _SQL = """select O.Name from ort O inner join land L on L.LNR=O.LNR where L.Name=%s"""
+    _SQL = """select O.Name ,O.landesteil from ort O inner join land L on L.LNR=O.LNR where L.Name=%s"""
     cursor.execute(_SQL, (land,))
     landinfo = cursor.fetchall()
     return landinfo
