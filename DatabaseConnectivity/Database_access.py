@@ -7,6 +7,12 @@ dbconfig = {"host": "localhost",
             "port": "3306"}
 
 
+def getneighborland(land):
+    _SQL="""select Name from land  where LNR in(select N.LNR2 from land L inner join nachbarland N on L.LNR=N.LNR1 where L.Name=%s)"""
+    cursor.execute(_SQL,(land,))
+    result=cursor.fetchall()
+    return result
+
 def getallContinent():
     _SQL = """select Name from kontinent"""
     cursor.execute(_SQL)
