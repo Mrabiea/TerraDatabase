@@ -30,11 +30,14 @@ def popupmsg(message):
 
 
 
-def selecteditem(*args):
-    popupmsg("jaaa")
+def selecteditem(event):
+    global cities_list
+    w=event.widget
+    ort=cities_list[w.curselection()[0]][0]
+    popupmsg(ort)
 
 def newwindow():
-    global secondroot, root, countries_string, contient_string
+    global secondroot, root, countries_string, contient_string,cities_list
 
     secondroot = tk.Toplevel(root)
     secondroot.geometry("800x600")
@@ -61,8 +64,8 @@ def newwindow():
     city_list.grid(row=4, column=1, columnspan=1, padx=10)
     city_list.config(yscrollcommand=scrollbar.set)
     city_list.bind("<<ListboxSelect>>", selecteditem)
-
-    for i in access.getcities(countries_string.get()):
+    cities_list=access.getcities(countries_string.get())
+    for i in cities_list:
         if i[1] is not None:
             city_list.insert(tk.END, i[0] + "-->" + i[1])
         else:
