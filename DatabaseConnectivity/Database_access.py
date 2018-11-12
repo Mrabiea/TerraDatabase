@@ -8,7 +8,8 @@ dbconfig = {"host": "localhost",
 
 
 def getneighborland(land):
-    _SQL = """select Name from land  where LNR in(select N.LNR2 from land L inner join nachbarland N on L.LNR=N.LNR1 where L.Name=%s)"""
+    _SQL = """select Name from land  where LNR in(select N.LNR2 from land 
+    L inner join nachbarland N on L.LNR=N.LNR1 where L.Name=%s)"""
     cursor.execute(_SQL, (land,))
     result = cursor.fetchall()
     return result
