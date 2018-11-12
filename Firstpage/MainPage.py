@@ -17,8 +17,21 @@ def center(win):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
     # (win.winfo_screenheight() // 2) -
 
+def popupmsg(message):
+    global root
+    popup = tk.Toplevel()
+    popup.wm_title("!caution")
+    center(popup)
+    label = ttk.Label(popup, text=message)
+    label.pack(side="top", fill="x", pady=10)
+    B1 = ttk.Button(popup, text="Okay", command=popup.destroy)
+    B1.pack()
 
 
+
+
+def selecteditem(*args):
+    popupmsg("jaaa")
 
 def newwindow():
     global secondroot, root, countries_string, contient_string
@@ -47,7 +60,7 @@ def newwindow():
     city_list = tk.Listbox(secondroot, width=30)
     city_list.grid(row=4, column=1, columnspan=1, padx=10)
     city_list.config(yscrollcommand=scrollbar.set)
-    # city_list.bind("<B1-Leave>", lambda event: "break")
+    city_list.bind("<<ListboxSelect>>", selecteditem)
 
     for i in access.getcities(countries_string.get()):
         if i[1] is not None:
