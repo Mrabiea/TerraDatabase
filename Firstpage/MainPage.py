@@ -43,7 +43,10 @@ def newwindow():
     #city_list.bind("<B1-Leave>", lambda event: "break")
 
     for i in access.getcities(countries_string.get()):
-        city_list.insert(tk.END, i[0]+"-->"+i[1])
+        if i[1] is not None:
+            city_list.insert(tk.END, i[0]+"-->"+i[1])
+        else:
+            city_list.insert(tk.END,i[0])
 
     neighborlands = tk.Label(secondroot, text="Neighbors of " + land_info[0][1])
     neighborlands.grid(row=2, column=2)
@@ -92,7 +95,7 @@ def setup():
     # contient_string.set(continent[2])
 
     continent_C = ttk.OptionMenu(root, contient_string, "Choose a Continent",
-                                 *continent[1:], command=selectedContinent)
+                                 *continent, command=selectedContinent)
     continent_C.config(width=20)
     continent_C.grid(row=0, column=1, padx=20, pady=20)
 
