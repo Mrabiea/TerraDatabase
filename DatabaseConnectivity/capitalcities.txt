@@ -2,7 +2,7 @@ Afghanistan: Kabul
 Albania: Tirana
 Algeria: Algiers
 Andorra: Andorra la Vella
-Angola: Luanda
+Angola: Luanda"
 Antigua and Barbuda: Saint John's
 Argentina: Buenos Aires
 Armenia: Yerevan
