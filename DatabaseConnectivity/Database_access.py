@@ -31,7 +31,7 @@ def getlanguage(land):
 
 
 def getcities(land):
-    _SQL = """select O.Name ,O.landesteil from ort O inner join land L on L.LNR=O.LNR where L.Name=%s"""
+    _SQL = """select O.Name ,O.landesteil,o from ort O inner join land L on L.LNR=O.LNR where L.Name=%s"""
     cursor.execute(_SQL, (land,))
     landinfo = cursor.fetchall()
     return landinfo
@@ -50,6 +50,12 @@ def getlandinfo(land):
     landinfo = cursor.fetchall()
     return landinfo
 
+def getortinfo(ort):
+    _SQL = """select O.Name ,O.landesteil, O.Einwohner, O.Breite, O.Laenge 
+    from ort O inner join land L on L.LNR=O.LNR where L.Name=%s"""
+    cursor.execute(_SQL, (ort,))
+    ortinfo = cursor.fetchall()
+    return ortinfo
 
 def connectto_database():
     global dbconfig, connection, cursor
@@ -58,3 +64,4 @@ def connectto_database():
 
 def getthecapital():
     pass
+

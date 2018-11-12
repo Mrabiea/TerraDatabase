@@ -22,10 +22,29 @@ def popupmsg(message):
     popup = tk.Toplevel()
     popup.wm_title("!caution")
     center(popup)
-    label = ttk.Label(popup, text=message)
-    label.pack(side="top", fill="x", pady=10)
-    B1 = ttk.Button(popup, text="Okay", command=popup.destroy)
-    B1.pack()
+    popup.geometry("250x380")
+    label = ttk.Label(popup, text='Stadt:')
+    label.grid(row=0, column=0, padx=20, pady=20)
+    label = ttk.Label(popup, text=message[0])
+    label.grid(row=0, column=1)
+    label = ttk.Label(popup, text='Landesteil:')
+    label.grid(row=1, column=0,padx=20, pady=20)
+    label = ttk.Label(popup, text=message[1])
+    label.grid(row=1, column=1)
+    label = ttk.Label(popup, text='Einwohner:')
+    label.grid(row=2, column=0, padx=20, pady=20)
+    label = ttk.Label(popup, text=message[2])
+    label.grid(row=2, column=1)
+    label = ttk.Label(popup, text='Breite:')
+    label.grid(row=3, column=0, padx=20, pady=20)
+    label = ttk.Label(popup, text=message[3])
+    label.grid(row=3, column=1)
+    label = ttk.Label(popup, text='Länge:')
+    label.grid(row=4, column=0, padx=20, pady=20)
+    label = ttk.Label(popup, text=message[4])
+    label.grid(row=4, column=1)
+    B1 = ttk.Button(popup, text="Okay", widt=30, command=popup.destroy)
+    B1.grid(row=5, column=0, columnspan=2, padx=20, pady=20)
 
 
 
@@ -33,7 +52,7 @@ def popupmsg(message):
 def selecteditem(event):
     global cities_list
     w=event.widget
-    ort=cities_list[w.curselection()[0]][0]
+    ort=cities_list[w.curselection()[0]]
     popupmsg(ort)
 
 def newwindow():
@@ -64,7 +83,7 @@ def newwindow():
     city_list.grid(row=4, column=1, columnspan=1, padx=10)
     city_list.config(yscrollcommand=scrollbar.set)
     city_list.bind("<<ListboxSelect>>", selecteditem)
-    cities_list=access.getcities(countries_string.get())
+    cities_list=access.getortinfo(countries_string.get())
     for i in cities_list:
         if i[1] is not None:
             city_list.insert(tk.END, i[0] + "-->" + i[1])
