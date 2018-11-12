@@ -40,13 +40,13 @@ def newwindow():
     city_list = tk.Listbox(secondroot, width=30)
     city_list.grid(row=3, column=1, columnspan=1, padx=10)
     city_list.config(yscrollcommand=scrollbar.set)
-    #city_list.bind("<B1-Leave>", lambda event: "break")
+    # city_list.bind("<B1-Leave>", lambda event: "break")
 
     for i in access.getcities(countries_string.get()):
         if i[1] is not None:
-            city_list.insert(tk.END, i[0]+"-->"+i[1])
+            city_list.insert(tk.END, i[0] + "-->" + i[1])
         else:
-            city_list.insert(tk.END,i[0])
+            city_list.insert(tk.END, i[0])
 
     neighborlands = tk.Label(secondroot, text="Neighbors of " + land_info[0][1])
     neighborlands.grid(row=2, column=2)
@@ -62,7 +62,7 @@ def newwindow():
     languages_list = tk.Listbox(secondroot)
     languages_list.grid(row=3, column=3, padx=10)
     for i in access.getlanguage(countries_string.get()):
-        languages_list.insert(tk.END,i)
+        languages_list.insert(tk.END, i)
     secondroot.mainloop()
 
 
@@ -92,7 +92,6 @@ def setup():
     continent = [item for sublist in access.getallContinent() for item in sublist]
     # OptionMenu braucht eine verändbare Varibale deshalb habe ich sie hinzugefügt
     contient_string = tk.StringVar()
-    # contient_string.set(continent[2])
 
     continent_C = ttk.OptionMenu(root, contient_string, "Choose a Continent",
                                  *continent, command=selectedContinent)
