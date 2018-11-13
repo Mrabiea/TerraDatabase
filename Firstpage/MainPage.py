@@ -17,37 +17,24 @@ def center(win):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
     # (win.winfo_screenheight() // 2) -
 
+
 def popupmsg(message):
+    '''3rd Window - it shows the information about a selected city'''
     global root
     popup = tk.Toplevel()
-    popup.wm_title("!caution")
+    popup.wm_title("M&Y Project")
     center(popup)
     popup.geometry("250x380")
-    label = ttk.Label(popup, text='Stadt:')
-    label.grid(row=0, column=0, padx=20, pady=20)
-    label = ttk.Label(popup, text=message[0])
-    label.grid(row=0, column=1)
-    label = ttk.Label(popup, text='Landesteil:')
-    label.grid(row=1, column=0,padx=20, pady=20)
-    label = ttk.Label(popup, text=message[1])
-    label.grid(row=1, column=1)
-    label = ttk.Label(popup, text='Einwohner:')
-    label.grid(row=2, column=0, padx=20, pady=20)
-    label = ttk.Label(popup, text=message[2])
-    label.grid(row=2, column=1)
-    label = ttk.Label(popup, text='Breite:')
-    label.grid(row=3, column=0, padx=20, pady=20)
-    label = ttk.Label(popup, text=message[3])
-    label.grid(row=3, column=1)
-    label = ttk.Label(popup, text='Länge:')
-    label.grid(row=4, column=0, padx=20, pady=20)
-    label = ttk.Label(popup, text=message[4])
-    label.grid(row=4, column=1)
+    fields = ('Stadt', 'Landesteil', 'Einwohner', 'Breite', 'Länge')
+    for i in range(0, len(fields)):
+        label = ttk.Label(popup, text=fields[i])
+        label.grid(row=i, column=0, padx=20, pady=20)
+        label2 = ttk.Label(popup, text=message[i])
+        label2.grid(row=i, column=1)
+
     B1 = ttk.Button(popup, text="Okay", widt=30, command=popup.destroy)
     B1.grid(row=5, column=0, columnspan=2, padx=20, pady=20)
-
-
-
+    popup.grab_set()
 
 def selecteditem(event):
     global cities_list
@@ -55,11 +42,14 @@ def selecteditem(event):
     ort=cities_list[w.curselection()[0]]
     popupmsg(ort)
 
+
 def newwindow():
+    '''2nd window where the information about a selected country
+    are displayed (capital city, cities, languages, neighbors)'''
     global secondroot, root, countries_string, contient_string,cities_list
 
     secondroot = tk.Toplevel(root)
-    secondroot.geometry("800x600")
+    secondroot.geometry("600x350")
     center(secondroot)
     secondroot.title("M&Y Project")
     land_info = getting_land_info(countries_string.get())
@@ -116,14 +106,18 @@ def selectedContinent(*args):
 
 
 def enabelingButton(*args):
+    '''the Go-Button is only enabled, when kontinent and country
+    are selected'''
     global go
     go.configure(state="normal")
 
 
 def setup():
+    '''first window - 2 OptionMenu's where you can choose a kontinent
+    and a country'''
     global root, counrties_string, contient_string, country_list, country_C, countries_string, go
     root = tk.Tk()
-    root.title("M&Y project")
+    root.title("M&Y Project")
     root.geometry("600x400")
     center(root)
     continent_L = ttk.Label(root, text="Choose a continent:", width=20)
