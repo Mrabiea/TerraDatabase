@@ -17,46 +17,37 @@ def center(win):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
     # (win.winfo_screenheight() // 2) -
 
+
 def popupmsg(message):
+    '''3rd Window - it shows the information about the selected city'''
     global root
     popup = tk.Toplevel()
-    popup.wm_title("!caution")
+    popup.wm_title("M&Y Project")
     center(popup)
-    popup.geometry("250x380")
-    label = ttk.Label(popup, text='Stadt:')
-    label.grid(row=0, column=0, padx=20, pady=20)
-    label = ttk.Label(popup, text=message[0])
-    label.grid(row=0, column=1)
-    label = ttk.Label(popup, text='Landesteil:')
-    label.grid(row=1, column=0,padx=20, pady=20)
-    label = ttk.Label(popup, text=message[1])
-    label.grid(row=1, column=1)
-    label = ttk.Label(popup, text='Einwohner:')
-    label.grid(row=2, column=0, padx=20, pady=20)
-    label = ttk.Label(popup, text=message[2])
-    label.grid(row=2, column=1)
-    label = ttk.Label(popup, text='Breite:')
-    label.grid(row=3, column=0, padx=20, pady=20)
-    label = ttk.Label(popup, text=message[3])
-    label.grid(row=3, column=1)
-    label = ttk.Label(popup, text='Länge:')
-    label.grid(row=4, column=0, padx=20, pady=20)
-    label = ttk.Label(popup, text=message[4])
-    label.grid(row=4, column=1)
+    popup.geometry("300x400")
+    fields = ('Stadt', 'Landesteil', 'Einwohner', 'Breite', 'Länge')
+    for i in range(0, len(fields)):
+        label = ttk.Label(popup, text=fields[i])
+        label.grid(row=i, column=0, padx=20, pady=20)
+        label2 = ttk.Label(popup, text=message[i])
+        label2.grid(row=i, column=1)
+
     B1 = ttk.Button(popup, text="Okay", widt=30, command=popup.destroy)
     B1.grid(row=5, column=0, columnspan=2, padx=20, pady=20)
-
-
+    popup.grab_set()
 
 
 def selecteditem(event):
     global cities_list
-    w=event.widget
-    ort=cities_list[w.curselection()[0]]
+    w = event.widget
+    ort = cities_list[w.curselection()[0]]
     popupmsg(ort)
 
+
 def newwindow():
-    global secondroot, root, countries_string, contient_string,cities_list
+    '''2nd window where the information about the selected country
+    are displayed (capital city, cities, languages, neighbors)'''
+    global secondroot, root, countries_string, contient_string, cities_list
 
     secondroot = tk.Toplevel(root)
     secondroot.geometry("800x600")
@@ -79,11 +70,11 @@ def newwindow():
 
     cities_label = ttk.Label(secondroot, text="Cities of " + land_info[0][1])
     cities_label.grid(row=3, column=1)
-    city_list = tk.Listbox(secondroot, width=30)
+    city_list = tk.Listbox(secondroot, width=30, exportselection=0)
     city_list.grid(row=4, column=1, columnspan=1, padx=10)
     city_list.config(yscrollcommand=scrollbar.set)
     city_list.bind("<<ListboxSelect>>", selecteditem)
-    cities_list=access.getortinfo(countries_string.get())
+    cities_list = access.getortinfo(countries_string.get())
     for i in cities_list:
         if i[1] is not None:
             city_list.insert(tk.END, i[0] + "-->" + i[1])
@@ -105,25 +96,43 @@ def newwindow():
     languages_list.grid(row=4, column=3, padx=10)
     for i in access.getlanguage(countries_string.get()):
         languages_list.insert(tk.END, i)
+
+    secondroot.grab_set()
     secondroot.mainloop()
 
 
 def selectedContinent(*args):
+    '''
+    updating the option Menu's options
+    :param args:
+    :return:
+    '''
     global country_list, contient_string, country_C
+
     country_list = [item for sublist in access.getalllands(contient_string.get()) for item in
                     sublist]
-    country_C.set_menu(*country_list)
+    if len(country_list)>1:
+        country_C.set_menu(*country_list)
+    else:
+        country_C.set_menu(" ")
 
 
 def enabelingButton(*args):
+    '''the Go-Button is only enabled, when kontinent and country
+    are selected'''
     global go
     go.configure(state="normal")
 
 
 def setup():
+    '''
+    first window - 2 OptionMenu's where you can choose a continent
+    and a country
+    :return:
+    '''
     global root, counrties_string, contient_string, country_list, country_C, countries_string, go
     root = tk.Tk()
-    root.title("M&Y project")
+    root.title("M&Y Project")
     root.geometry("600x400")
     center(root)
     continent_L = ttk.Label(root, text="Choose a continent:", width=20)
@@ -150,7 +159,6 @@ def setup():
     go = ttk.Button(root, text='Go!', width=20, command=newwindow)
     go.configure(state="disabled")
     go.grid(row=2, column=1, padx=20, pady=20)
-    # go.bind('<Button-1>', func=newwindow)
 
 
 if __name__ == "__main__":
