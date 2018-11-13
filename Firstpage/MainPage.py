@@ -17,19 +17,18 @@ def center(win):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
     # (win.winfo_screenheight() // 2) -
 
-
 def popupmsg(message):
     global root
     popup = tk.Toplevel()
     popup.wm_title("!caution")
     center(popup)
-    popup.geometry("340x400")
+    popup.geometry("250x380")
     label = ttk.Label(popup, text='Stadt:')
     label.grid(row=0, column=0, padx=20, pady=20)
     label = ttk.Label(popup, text=message[0])
     label.grid(row=0, column=1)
     label = ttk.Label(popup, text='Landesteil:')
-    label.grid(row=1, column=0, padx=20, pady=20)
+    label.grid(row=1, column=0,padx=20, pady=20)
     label = ttk.Label(popup, text=message[1])
     label.grid(row=1, column=1)
     label = ttk.Label(popup, text='Einwohner:')
@@ -46,19 +45,18 @@ def popupmsg(message):
     label.grid(row=4, column=1)
     B1 = ttk.Button(popup, text="Okay", widt=30, command=popup.destroy)
     B1.grid(row=5, column=0, columnspan=2, padx=20, pady=20)
-    popup.grab_set()
+
+
 
 
 def selecteditem(event):
-    global cities_list, city_list
-
-    w = event.widget
-    ort = cities_list[w.curselection()[0]]
+    global cities_list
+    w=event.widget
+    ort=cities_list[w.curselection()[0]]
     popupmsg(ort)
 
-
 def newwindow():
-    global secondroot, root, countries_string, contient_string, cities_list, city_list
+    global secondroot, root, countries_string, contient_string,cities_list
 
     secondroot = tk.Toplevel(root)
     secondroot.geometry("800x600")
@@ -81,12 +79,11 @@ def newwindow():
 
     cities_label = ttk.Label(secondroot, text="Cities of " + land_info[0][1])
     cities_label.grid(row=3, column=1)
-    #exportselection war das problem
-    city_list = tk.Listbox(secondroot, width=30,exportselection=0)
+    city_list = tk.Listbox(secondroot, width=30)
     city_list.grid(row=4, column=1, columnspan=1, padx=10)
-    city_list.config(yscrollcommand=scrollbar.set,)
+    city_list.config(yscrollcommand=scrollbar.set)
     city_list.bind("<<ListboxSelect>>", selecteditem)
-    cities_list = access.getortinfo(countries_string.get())
+    cities_list=access.getortinfo(countries_string.get())
     for i in cities_list:
         if i[1] is not None:
             city_list.insert(tk.END, i[0] + "-->" + i[1])
@@ -108,7 +105,6 @@ def newwindow():
     languages_list.grid(row=4, column=3, padx=10)
     for i in access.getlanguage(countries_string.get()):
         languages_list.insert(tk.END, i)
-    secondroot.grab_set()
     secondroot.mainloop()
 
 
@@ -154,6 +150,7 @@ def setup():
     go = ttk.Button(root, text='Go!', width=20, command=newwindow)
     go.configure(state="disabled")
     go.grid(row=2, column=1, padx=20, pady=20)
+    # go.bind('<Button-1>', func=newwindow)
 
 
 if __name__ == "__main__":
